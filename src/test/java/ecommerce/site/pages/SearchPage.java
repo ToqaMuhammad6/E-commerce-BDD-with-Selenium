@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchPage extends BasePage {
 
@@ -28,7 +28,7 @@ public class SearchPage extends BasePage {
 
 
 
-    public void searchForWord(String searchItem){
+    public void searchFor(String searchItem){
         driver.findElement(searchBar).sendKeys(searchItem);
     }
 
@@ -43,25 +43,12 @@ public class SearchPage extends BasePage {
     }
 
     public List<String> loopThroughItems() {
-        List<String> productNames = new ArrayList<>();
+        List<String> productNames = listOfProducts().stream()
+                .map(item -> item.findElement(eachElement).getText().toLowerCase())
+                .peek(name -> System.out.println("Checking product: " + name))
+                .collect(Collectors.toList());
 
 
-        for (int i = 0; i < listOfProducts().size(); i++) {
-            WebElement item = listOfProducts().get(i);
-
-            // Find the element that contains the product name/title within each item.
-            // You might need to adjust this locator depending on the HTML structure.
-            // A common locator is to find the heading or a specific link.
-            WebElement productNameElement = item.findElement(eachElement);
-
-            // Get the text of the product name and convert to lower case for case-insensitive comparison.
-            String productName = productNameElement.getText().toLowerCase();
-            productNames.add(productName);
-
-            // Get the expected term and convert to lower case.
-            System.out.println("Checking product #" + (i + 1) + ": " + productName);
-
-        }
         return productNames;
     }
 
@@ -70,25 +57,20 @@ public class SearchPage extends BasePage {
         return driver.findElement(searchError).getText();
     }
 
-    /*public List<WebElement> recommendList(){
-        return driver.findElements(searchRecommended);
-    }*/
 
     public List<String> getRecommendedListTexts() {
-        //List<WebElement> elements = driver.findElements(searchRecommended);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         List<WebElement> elements = wait.until(
                 ExpectedConditions.visibilityOfAllElementsLocatedBy(searchRecommended)
         );
-        List<String> texts = new ArrayList<>();
 
-        for (WebElement el : elements) {
-            String text = el.getText().trim();
-            if (!text.isEmpty()) {   // only add non-empty values
-                texts.add(text.toLowerCase());
-            }
+        List<String> texts = elements.stream()
+                .map(el -> el.getText().trim())
+                .filter(text -> !text.isEmpty())
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
 
-        }
+
         return texts;
     }
 
