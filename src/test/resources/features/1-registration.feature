@@ -1,7 +1,7 @@
 Feature: User should be able to register on the website
 
   Background: User directed to the registration page and fill some data
-    Given RUser opens the site "https://demo.nopcommerce.com/"
+    #Given RUser opens the site "https://demo.nopcommerce.com/"
     And User clicks on the registration button from homepage
     When User selects a gender
     And User fills the first name "Try"
@@ -10,7 +10,7 @@ Feature: User should be able to register on the website
 
   Scenario: User should be able to register an account on the site after filling the required data
 
-    And User adds an email "try111@gmail.com"
+    And User adds an email "test15@gmail.com"
     And User adds a company details "Test"
     And User adds a password "123456"
     And User confirms the password "123456"

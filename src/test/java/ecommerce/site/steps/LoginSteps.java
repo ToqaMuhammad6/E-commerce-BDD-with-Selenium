@@ -17,15 +17,16 @@ public class LoginSteps {
 
     LoginPage loginPage;
 
-    @Given("LUser opens the site \"(.*)\"$")
+    /*@Given("LUser opens the site \"(.*)\"$")
     public void openTheSiteForLogin(String url) {
         driver = DriverFactory.initDriver();
         registrationPage = new RegistrationPage(driver);
         registrationPage.navigate(url);
-    }
+    }*/
 
     @And("User clicks the login button from the homepage")
     public void goToLoginPageFromHome(){
+        driver = DriverFactory.getDriver();
         loginPage = new LoginPage(driver);
         loginPage.goToLoginPage();
     }

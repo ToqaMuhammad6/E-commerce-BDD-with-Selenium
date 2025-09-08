@@ -18,15 +18,16 @@ public class SearchSteps {
     RegistrationPage registrationPage;
     SearchPage searchPage;
 
-    @Given("SUser opens the site \"(.*)\"$")
+    /*@Given("SUser opens the site \"(.*)\"$")
     public void openTheSiteForLogin(String url) {
         driver = DriverFactory.initDriver();
         registrationPage = new RegistrationPage(driver);
         registrationPage.navigate(url);
-    }
+    }*/
 
     @When("User enters a word for search {string}")
     public void searchForAProduct(String searchWord) {
+        driver = DriverFactory.getDriver();
         searchPage = new SearchPage(driver);
         searchPage.searchFor(searchWord);
     }
@@ -49,7 +50,6 @@ public class SearchSteps {
 
          // Adjust locator
         //Assert.assertTrue(resultsContainer.isDisplayed());
-        // Optionally, assert the title or a specific text indicating the search term
         //Assert.assertTrue(driver.getTitle().toLowerCase().contains(expectedTerm.toLowerCase()));
         //WebElement productName = firstResult.findElement(By.cssSelector("img[alt='Picture of Samsung Premium Ultrabook']")); //worked
         // Assert.assertTrue(productName.getText().toLowerCase().contains(expectedTerm.toLowerCase()));
@@ -61,7 +61,6 @@ public class SearchSteps {
 
 
 
-        // Assert that the product name contains the expected search term.
         /*Assert.assertTrue(textItems.contains(expectedTermLower),
                     "Product name '" + textItems + "' does not contain the expected term '" + expectedTerm + "'.");*/
         for (String productName : textItems) {

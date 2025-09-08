@@ -13,15 +13,17 @@ public class RegistrationSteps {
     WebDriver driver;
     RegistrationPage registrationPage;
 
-    @Given("RUser opens the site \"(.*)\"$")
+    /*@Given("RUser opens the site \"(.*)\"$")
     public void openTheSite(String url){
         driver= DriverFactory.initDriver();
         registrationPage= new RegistrationPage(driver);
         registrationPage.navigate(url);
-    }
+    }*/
 
     @And("User clicks on the registration button from homepage")
     public void goToRegisterPageFromHome(){
+        driver= DriverFactory.getDriver();
+        registrationPage= new RegistrationPage(driver);
         registrationPage.goToRegisterPage();
     }
 

@@ -1,7 +1,7 @@
 Feature: If user searches for a product the results should return related to that search
 
   Background: User open the site
-    Given SUser opens the site "https://demo.nopcommerce.com/"
+    #Given SUser opens the site "https://demo.nopcommerce.com/"
 
   Scenario: User finds a results related to that search
     When User enters a word for search "samsung"
@@ -14,6 +14,8 @@ Feature: If user searches for a product the results should return related to tha
     Then An error message display that minimum length is 3 characters
     And No results is returned
 
+
+  @Search
   Scenario: User finds a list related to the search
     When User enters a word for search "samsung"
     Then A list is displayed with the related word before click search "samsung"

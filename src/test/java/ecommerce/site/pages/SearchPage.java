@@ -2,6 +2,7 @@ package ecommerce.site.pages;
 
 import ecommerce.site.base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,7 +20,7 @@ public class SearchPage extends BasePage {
 
     private final By searchBar = By.cssSelector("#small-searchterms");
     private final By searchBtn = By.cssSelector("button.search-box-button");
-    private final By searchRecommended = By.cssSelector(".ui-autocomplete li");
+    private final By searchRecommended = By.cssSelector(".ui-autocomplete li .ui-menu-item-wrapper span");
     private final By resultList = By.cssSelector("div.item-grid .product-item");
 
     private final By eachElement = By.cssSelector(".product-title a");
@@ -59,7 +60,9 @@ public class SearchPage extends BasePage {
 
 
     public List<String> getRecommendedListTexts() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        //driver.findElement(searchBar).sendKeys(Keys.SPACE);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         List<WebElement> elements = wait.until(
                 ExpectedConditions.visibilityOfAllElementsLocatedBy(searchRecommended)
         );
